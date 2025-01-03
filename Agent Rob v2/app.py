@@ -16,9 +16,13 @@ def index():
     return static_file('index.html', root='./templates')
 
 # Statische Dateien
-@route('/static/<filename>')
-def serve_static(filename):
-    return static_file(filename, root='./static')  # root auf './static' für CSS/JS
+@route('/static/css/<filename>')
+def serve_css(filename):
+    return static_file(filename, root='./static/css')  # CSS-Dateien im Ordner './static/css'
+
+@route('/static/js/<filename>')
+def serve_js(filename):
+    return static_file(filename, root='./static/js')  # JS-Dateien im Ordner './static/js'
 
 # Chat-Endpunkt
 @route('/chat', method='POST')
