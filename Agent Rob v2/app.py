@@ -15,6 +15,11 @@ SYSTEM_PROMPT = "Du bist Rob, ein preisgekrönter Journalist eines deutschen Le
 def index():
     return static_file('index.html', root='./templates')
 
+# Statische Dateien
+@route('/static/<filename>')
+def serve_static(filename):
+    return static_file(filename, root='./static')  # root auf './static' für CSS/JS
+
 # Chat-Endpunkt
 @route('/chat', method='POST')
 def chat():
