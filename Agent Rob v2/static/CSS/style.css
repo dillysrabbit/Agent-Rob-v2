@@ -1,0 +1,94 @@
+:root {
+    --orange: #FF4D08;
+    --black: #000000;
+    --white: #FFFFFF;
+    --gray-light: #F5F5F5;
+    --gray: #CCCCCC;
+    --gray-dark: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 2rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--orange);
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: var(--gray-light);
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+.output-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.user-message {
+    background-color: var(--gray-light);
+    margin-left: 20%;
+}
+
+.bot-message {
+    background-color: var(--orange);
+    color: var(--white);
+    margin-right: 20%;
+}
+
+.input-area {
+    display: flex;
+    gap: 1rem;
+}
+
+#user-input {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--white);
+}
+
+#user-input:focus {
+    outline: 2px solid var(--orange);
+    border-color: var(--orange);
+}

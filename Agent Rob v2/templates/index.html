@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rob knows...</title>
+    <style>
+        :root {
+            --primary-orange: #FF4D08;
+            --white: #ffffff;
+            --black: #000000;
+            --light-gray: #eaeaea;
+            --dark-gray: #555555;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-orange);
+            color: var(--white);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .container {
+            background-color: var(--white);
+            color: var(--black);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--dark-gray);
+        }
+
+        button {
+            background-color: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--dark-gray);
+        }
+
+        .output-box {
+            background-color: var(--light-gray);
+            color: var(--black);
+            padding: 10px;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            border: 1px solid var(--dark-gray);
+        }
+    </style>
+</head>
+<body>
+    <h1>Rob knows...</h1>
+    <div class="container">
+        <input type="text" id="message-input" placeholder="Enter your prompt here...">
+        <button id="send-btn">Send</button>
+        <div class="output-box" id="chat-box">
+            <!-- Chat responses will appear here -->
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        sendBtn.addEventListener('click', async () => {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Show user's message in the chat box
+            chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            messageInput.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message }),
+                });
+                const data = await response.json();
+
+                // Show AI response in the chat box
+                chatBox.innerHTML += `<div><strong>Rob:</strong> ${data.response}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                chatBox.innerHTML += `<div><strong>Error:</strong> ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
